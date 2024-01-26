@@ -1,0 +1,144 @@
+basePath: /api/v1
+definitions:
+  definition.CommonResponse:
+    properties:
+      commit:
+        type: string
+      level:
+        type: string
+      message:
+        type: string
+      metadata:
+        properties:
+          parentResourceId:
+            type: string
+        type: object
+      resourceId:
+        type: string
+      spanId:
+        type: string
+      timestamp:
+        type: string
+      traceId:
+        type: string
+    required:
+    - commit
+    - level
+    - message
+    - metadata
+    - resourceId
+    - spanId
+    - timestamp
+    - traceId
+    type: object
+host: localhost:3100
+info:
+  contact:
+    email: hardeepnarang10@gmail.com
+    name: Hardeep Narang
+  description: Query API for Log Ingestor Service
+  license:
+    name: GPLv3
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  title: Log Ingestor - Query
+  version: v1.0
+paths:
+  /search/filter:
+    get:
+      description: Perform a filtered search based on specified fields
+      parameters:
+      - description: Log level
+        in: query
+        name: level
+        type: string
+      - description: Log message
+        in: query
+        name: message
+        type: string
+      - description: Log resourceId
+        in: query
+        name: resourceId
+        type: string
+      - description: Timerange start value
+        in: query
+        name: timestampStart
+        type: string
+      - description: Timerange end value
+        in: query
+        name: timestampEnd
+        type: string
+      - description: Log traceId
+        in: query
+        name: traceId
+        type: string
+      - description: Log spanId
+        in: query
+        name: spanId
+        type: string
+      - description: Log commit
+        in: query
+        name: commit
+        type: string
+      - description: Log metadata parentResourceId
+        in: query
+        name: metadateParentResourceId
+        type: string
+      - description: Pagination page value
+        in: query
+        name: paginationPage
+        type: integer
+      - description: Pagination count value
+        in: query
+        name: paginationCount
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/definition.CommonResponse'
+            type: array
+      summary: Perform filtered search
+      tags:
+      - Search
+  /search/rank:
+    get:
+      description: Perform a ranked search across multiple fields
+      parameters:
+      - description: Log multiline query string
+        in: query
+        name: query
+        type: string
+      - description: Timerange start value
+        in: query
+        name: timestampStart
+        type: string
+      - description: Timerange end value
+        in: query
+        name: timestampEnd
+        type: string
+      - description: Pagination page value
+        in: query
+        name: paginationPage
+        type: integer
+      - description: Pagination count value
+        in: query
+        name: paginationCount
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/definition.CommonResponse'
+            type: array
+      summary: Perform ranked search
+      tags:
+      - Search
+schemes:
+- http
+swagger: "2.0"

@@ -1,0 +1,215 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Query API for Log Ingestor Service",
+        "title": "Log Ingestor - Query",
+        "contact": {
+            "name": "Hardeep Narang",
+            "email": "hardeepnarang10@gmail.com"
+        },
+        "license": {
+            "name": "GPLv3",
+            "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+        },
+        "version": "v1.0"
+    },
+    "host": "localhost:3100",
+    "basePath": "/api/v1",
+    "paths": {
+        "/search/filter": {
+            "get": {
+                "description": "Perform a filtered search based on specified fields",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Perform filtered search",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Log level",
+                        "name": "level",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Log message",
+                        "name": "message",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Log resourceId",
+                        "name": "resourceId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Timerange start value",
+                        "name": "timestampStart",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Timerange end value",
+                        "name": "timestampEnd",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Log traceId",
+                        "name": "traceId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Log spanId",
+                        "name": "spanId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Log commit",
+                        "name": "commit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Log metadata parentResourceId",
+                        "name": "metadateParentResourceId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Pagination page value",
+                        "name": "paginationPage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Pagination count value",
+                        "name": "paginationCount",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/definition.CommonResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/search/rank": {
+            "get": {
+                "description": "Perform a ranked search across multiple fields",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Perform ranked search",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Log multiline query string",
+                        "name": "query",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Timerange start value",
+                        "name": "timestampStart",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Timerange end value",
+                        "name": "timestampEnd",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Pagination page value",
+                        "name": "paginationPage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Pagination count value",
+                        "name": "paginationCount",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/definition.CommonResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "definition.CommonResponse": {
+            "type": "object",
+            "required": [
+                "commit",
+                "level",
+                "message",
+                "metadata",
+                "resourceId",
+                "spanId",
+                "timestamp",
+                "traceId"
+            ],
+            "properties": {
+                "commit": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "type": "object",
+                    "properties": {
+                        "parentResourceId": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "resourceId": {
+                    "type": "string"
+                },
+                "spanId": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "traceId": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
